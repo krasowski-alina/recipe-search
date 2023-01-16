@@ -12,15 +12,15 @@ function App() {
   const [word, setWord] = useState("avocado")
 
   useEffect(()=> {
-    findRecipe()
+    const findRecipe = async () =>{
+      const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${word}&app_id=${MY_ID}&app_key=${MY_KEY}`);
+      const data = await response.json()
+      setMyRecipe(data.hits)
+      }
+      findRecipe()
   },[word])
 
-const findRecipe = async () =>{
-const response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${word}&app_id=${MY_ID}&app_key=${MY_KEY}`);
-const data = await response.json()
-setMyRecipe(data.hits)
-console.log(data.hits)
-}
+
 const myRecipeSearch = (e) => {
 setMySearch(e.target.value)
 console.log(e.target.value)
